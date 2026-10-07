@@ -58,6 +58,13 @@ GPU_TABLE: list[tuple[str, str, int, int]] = [
     (r"6800", "RX 6800", 16, 300),
     (r"6700\s*xt", "RX 6700 XT", 12, 230),
     (r"a770", "Arc A770", 16, 200),
+    (r"1080\s*ti", "GTX 1080 Ti", 11, 170),
+    (r"1080", "GTX 1080", 8, 110),
+    (r"1070", "GTX 1070", 8, 90),
+    (r"1660", "GTX 1660", 6, 90),
+    (r"1060", "GTX 1060", 6, 60),
+    (r"980\s*ti", "GTX 980 Ti", 6, 70),
+    (r"970", "GTX 970", 4, 45),
 ]
 # VRAM-specific overrides for cards sold in two memory sizes.
 GPU_VRAM_FAIR = {("RTX 4060 Ti", 16): 370, ("RTX 3080", 12): 360, ("RTX 2060", 12): 160}
@@ -139,6 +146,8 @@ def cpu_tier(cpu: str | None) -> int | None:
     m = re.search(r"xeon\s*w-?(\d)", t)
     if m:
         return 6
+    if re.search(r"\bfx[\s-]*\d{4}|phenom|athlon\s*ii", t):
+        return 1  # pre-Ryzen AMD: slow single-thread, high power draw
     if "xeon" in t:
         return 3  # old E5/E3: lots of cores, high idle power, slow single-thread
     return None

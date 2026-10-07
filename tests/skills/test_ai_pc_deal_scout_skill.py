@@ -68,6 +68,13 @@ class TestValueOrdering:
         g8 = sl.identify_gpu("RTX 4060 Ti", 8)
         assert g16["fair_eur"] > g8["fair_eur"]
 
+    def test_pre_ryzen_amd_cpu_recognised_as_low_tier(self):
+        assert sl.cpu_tier("AMD FX 8350") is not None
+        assert sl.cpu_tier("AMD FX 8350") < sl.cpu_tier("Ryzen 5 5600")
+
+    def test_old_gpu_valued_below_rtx_3060(self):
+        assert sl.identify_gpu("GTX 970", 4)["fair_eur"] < sl.identify_gpu("RTX 3060", 12)["fair_eur"]
+
     def test_vram_parsed_from_gpu_string(self):
         assert sl.identify_gpu("RTX 4060 Ti 16GB", None)["vram_gb"] == 16
 
