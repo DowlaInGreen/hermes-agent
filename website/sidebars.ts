@@ -561,6 +561,7 @@ const sidebars: SidebarsConfig = {
                   key: 'skills-optional-research',
                   collapsed: true,
                   items: [
+                    'user-guide/skills/optional/research/research-ai-pc-deal-scout',
                     'user-guide/skills/optional/research/research-bioinformatics',
                     'user-guide/skills/optional/research/research-darwinian-evolver',
                     'user-guide/skills/optional/research/research-domain-intel',
